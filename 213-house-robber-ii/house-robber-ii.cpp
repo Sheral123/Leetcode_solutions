@@ -26,25 +26,29 @@ public:
             }
         }
      
-        dp1[0] = nums1[0];
+        int prev2= nums1[0];
+        int prev= nums1[0];
         for(int i=1 ; i<nums1.size();i++){
             int right = nums1[i];
             if(i>1){
-                right += dp1[i - 2];
+                right += prev2;
             }         
-            int left = dp1[i-1];
-            dp1[i]= max(left,right);
+            int left = prev;
+            prev2 = prev;
+            prev = max(left,right);
         }
 
-        dp2[0] = nums2[0];
+        int prev3 = nums2[0];
+        int prev4= nums2[0];
         for(int i=1 ; i<nums2.size();i++){
             int right = nums2[i];
             if(i>1){
-                right += dp2[i - 2];
+                right += prev3;
             }
-            int left = dp2[i-1];
-            dp2[i]= max(left,right);
+            int left = prev4;
+            prev3=prev4;
+            prev4= max(left,right);
         }
-        return max(dp1[nums1.size()-1],dp2[nums2.size()-1]);
+        return max(prev,prev4);
     }
 };
