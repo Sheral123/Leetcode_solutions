@@ -28,6 +28,8 @@ public:
         }
         int ans1 = f(nums1,dp1,nums1.size()-1);
         int ans2 = f(nums2,dp2,nums2.size()-1);
+        cout<<nums1.size();
+        cout<<nums2.size();
         return max(ans1,ans2);
     }
 };
