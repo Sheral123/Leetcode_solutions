@@ -13,8 +13,8 @@ public:
     }*/
 
     int rob(vector<int>& nums) {
-        vector<int> dp1(nums.size()-1,-1);
-        vector<int> dp2(nums.size()-1,-1);
+       // vector<int> dp1(nums.size()-1,-1);
+        //vector<int> dp2(nums.size()-1,-1);
         vector<int> nums1, nums2;
         if(nums.size() == 1) return nums[0];
         for(int i=0; i< nums.size(); i++){
