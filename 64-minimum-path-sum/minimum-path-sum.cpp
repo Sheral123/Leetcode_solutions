@@ -28,7 +28,7 @@ public:
 
         int m = grid.size();
         int n = grid[0].size();
-        vector<vector<int>> dp(m, vector<int>(n, 0)); // Initialize dp with INT_MAX
+        vector<vector<int>> dp(m, vector<int>(n, -1)); // Initialize dp with INT_MAX
         dp[0][0] = grid[0][0]; // Set the starting cell
 
         for(int i = 0; i < m; i++){
