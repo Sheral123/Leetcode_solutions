@@ -19,36 +19,71 @@ public:
     }
 };
 */
-
+/*
 class Solution {
 public:
 
-    
     int minPathSum(vector<vector<int>>& grid) {
 
         int m = grid.size();
         int n = grid[0].size();
-        vector<vector<int>> dp(m, vector<int>(n, -1)); // Initialize dp with INT_MAX
-        dp[0][0] = grid[0][0]; // Set the starting cell
+        //vector<vector<int>> dp(m, vector<int>(n, -1)); 
+        vector<int> prev(n, 0); 
+        
+        prev[0] = grid[0][0];  
 
         for(int i = 0; i < m; i++){
+            vector<int> temp(n, 0); 
             for(int j = 0; j < n; j++){
-                if(i == 0 && j == 0) // Skip the first cell since it's already initialized
+                if(i == 0 && j == 0)  
                     continue;
                 
-                int up = INT_MAX; // Initialize to INT_MAX
-                int left = INT_MAX; // Initialize to INT_MAX
+                int up = INT_MAX;  
+                int left = INT_MAX;  
 
                 if(i > 0)
-                    up = grid[i][j] + dp[i - 1][j]; // Calculate the value from the cell above
+                    up = grid[i][j] + prev[j];  
 
                 if(j > 0)
-                    left = grid[i][j] + dp[i][j - 1]; // Calculate the value from the cell to the left
+                    left = grid[i][j] + temp[j-1];  
                 
-                // Update dp with the minimum value from up or left
-                dp[i][j] = min(up, left);
-            }                
+                 
+                temp[j] = min(up, left);
+            }     
+            prev = temp;           
         }
-        return dp[m - 1][n - 1];
+
+        return prev[n-1];
+    }
+};*/
+
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid[0].size();
+        int n = grid.size();
+        vector<int> prev(m,0);
+        for(int i=0; i<n; i++){
+            vector<int> temp(m,0);
+            for(int j=0; j<m; j++){
+                if(i==0 && j==0){
+                    temp[0] = grid[0][0];
+                }
+                else{
+                    int up = grid[i][j]; 
+                    if(i>0) up+= prev[j];
+                    else up+= 1e9;
+
+                    int left = grid[i][j];
+                    if(j>0) left+= temp[j-1];
+                    else left+= 1e9;
+
+                    temp[j] = min(up, left);
+                }
+            }
+            prev = temp;
+        }
+        return prev[m-1];
     }
 };
+
