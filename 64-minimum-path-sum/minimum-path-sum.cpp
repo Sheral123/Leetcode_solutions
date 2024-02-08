@@ -22,60 +22,33 @@ public:
 
 class Solution {
 public:
+
+    
     int minPathSum(vector<vector<int>>& grid) {
+
         int m = grid.size();
         int n = grid[0].size();
-        
-        vector<vector<int>> dp(m, vector<int>(n, INT_MAX));
-        dp[0][0] = grid[0][0];
+        vector<vector<int>> dp(m, vector<int>(n, 0)); // Initialize dp with INT_MAX
+        dp[0][0] = grid[0][0]; // Set the starting cell
 
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                if (i > 0)
-                    dp[i][j] = min(dp[i][j], grid[i][j] + dp[i - 1][j]);
-                if (j > 0)
-                    dp[i][j] = min(dp[i][j], grid[i][j] + dp[i][j - 1]);
-            }
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(i == 0 && j == 0) // Skip the first cell since it's already initialized
+                    continue;
+                
+                int up = INT_MAX; // Initialize to INT_MAX
+                int left = INT_MAX; // Initialize to INT_MAX
+
+                if(i > 0)
+                    up = grid[i][j] + dp[i - 1][j]; // Calculate the value from the cell above
+
+                if(j > 0)
+                    left = grid[i][j] + dp[i][j - 1]; // Calculate the value from the cell to the left
+                
+                // Update dp with the minimum value from up or left
+                dp[i][j] = min(up, left);
+            }                
         }
         return dp[m - 1][n - 1];
     }
 };
-
-/*
-class Solution {
-public:
-
-    int minSumPath(vector<vector<int>> &grid) {
-        int m= grid.size();
-        int n = grid[0].size();
-        vector<vector<int>> dp(m, vector<int>(n, 0)); // Initialize a DP table to store minimum path sums
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i == 0 && j == 0) dp[i][j] = grid[i][j]; // If we are at the top-left corner, the minimum path sum is the value at (0, 0)
-                else {
-                // Calculate the minimum path sum considering moving up and moving left
-                    int up = grid[i][j];
-                    if (i > 0)
-                        up += dp[i - 1][j]; // Include the minimum path sum from above
-                    else
-                     up += 1e9; // A large value if moving up is not possible (out of bounds)
-
-                    int left = grid[i][j];
-                    if (j > 0)
-                        left += dp[i][j - 1]; // Include the minimum path sum from the left
-                    else
-                        left += 1e9; // A large value if moving left is not possible (out of bounds)
-
-                // Store the minimum path sum in dp[i][j]
-                dp[i][j] = min(up, left);
-            }
-        }
-    }
-
-    // The final result is stored in dp[n-1][m-1], which represents the destination
-    return dp[m - 1][n - 1];
-}
-   
-};
-*/
