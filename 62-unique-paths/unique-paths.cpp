@@ -22,28 +22,14 @@ public:
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        vector<int> cur(n + 1, 0);
-        for (int i = 1; i <= m; i++) {
-            vector<int> temp(n + 1, 0);
-            for (int j = 1; j <= n; j++) {
-                if (i == 1 && j == 1)
-                    temp[j] = 1;
-                else {
-                    int up = 0;
-                    int left = 0;
-                    if (i > 1) {
-                        up = cur[j];
-                    }
-                    if (j > 1) {
-                        left = temp[j - 1];
-                    }
-
-                    temp[j] = up + left;
-                }
-            }
-            cur = temp;
+        int N = m + n - 2;
+        int r = m-1;
+        double ans = 1;
+        for(int i=1; i<=r; i++){
+            ans = ans*(N - r + i)/i;
         }
-        return cur[n];
-    }
+        return (int)ans;
+    }  
+
 };
 
