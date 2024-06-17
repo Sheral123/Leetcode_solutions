@@ -28,7 +28,7 @@ public:
         for(int i=1; i<=r; i++){
             ans = ans*(N - r + i)/i;
         }
-        return (int)ans;
+        return ans;
     }  
 
 };
