@@ -6,13 +6,12 @@ public:
         int n = nums.size();
         for(int i =0; i<n;i++){
             if(nums[i] == 0) {
-                cmp = max(cmp,mx);
                 mx = 0;
             }    
             else{
                 mx++;  
-                cmp = max(cmp,mx);
             }
+            cmp = max(cmp,mx);
         }
         return cmp;
     }
