@@ -12,27 +12,25 @@ class Solution {
 public:
 
     ListNode* rotateRight(ListNode* head, int k){
+        if(head == NULL || head->next == NULL || k==0) return head;
+        ListNode *temp =  head;
+        int len = 1;
 
-        if(!head) return head;
-        
-        int len=1; // number of nodes
-        ListNode *newH, *tail;
-        newH=tail=head;
-        
-        while(tail->next)  // get the number of nodes in the list
-        {
-            tail = tail->next;
+        while(temp->next != NULL){
+            temp = temp->next;
             len++;
         }
-        tail->next = head; // circle the link
 
-        if(k %= len) 
-        {
-            for(auto i=0; i<len-k; i++) tail = tail->next; // the tail node is the (len-k)-th node (1st node is head)
+        temp->next = head;
+        k = k%len;
+        int end = len-k;
+        while(end--){
+            temp = temp->next;
         }
-        newH = tail->next; 
-        tail->next = NULL;
-        return newH;   
-    }     
+        head = temp->next;
+        temp->next = NULL;
+        
+        return head;
+    }    
     
 };
